@@ -1,0 +1,62 @@
+{% extends 'cctv/base.html' %}
+{% block content %}
+<p>공간 관리 페이지</p>
+  <form method="POST" class="post-form" value="space">{% csrf_token %}
+    <p>---------------------------------------------------------------------
+    <p>공간 목록</p>
+    {% for space in space_list %}
+    <div>
+      <p>공간 ID: {{ space.id }}, 행정동: {{ space.dong }}, 건물명: {{ space.building_name}}, 층수: {{ space.flr }}, 실내위치: {{ space.location }} </p>
+    </div>
+    {% endfor %}
+    <p>---------------------------------------------------------------------
+    <p>공간 추가</p>
+    <p><label for="shoot_space_id">촬영공간 ID:</label>
+      <input name="shoot_space_id" id="shoot_space_id" type="text" maxlength="20" required></p>
+    <p><label for="dong">행정동:</label>
+      <input name="dong" id="dong" type="text" maxlength="20" required></p>
+    <p><label for="building_name">건물명:</label>
+      <input name="building_name" id="building_name" type="text" maxlength="20" required></p>
+    <p><label for="flr">층수:</label>
+      <input name="flr" id="flr" type="text" maxlength="20" required></p>
+    <p><label for="location">실내위치:</label>
+      <input name="location" id="location" type="text" maxlength="20" required></p>
+    <button type="submit" name="mode" value="insert" class="save btn btn-default">등록</button>
+  </form>
+  <p>---------------------------------------------------------------------
+  <p>공간 삭제</p>
+  <form method="POST" class="post-form">{% csrf_token %}
+    <p><label for="shoot_space_id">촬영공간 ID:</label>
+      <input name="shoot_space_id" id="shoot_space_id" type="text" maxlength="20" required></p>
+    <button type="submit" name="mode" value="delete" class="save btn btn-defalut">삭제</button>
+  </form>
+  <p>---------------------------------------------------------------------
+
+  
+  <form method="POST" class="post-form">{% csrf_token %}
+    <p>---------------------------------------------------------------------
+    <p>이웃 공간 목록</p>
+    {% for neighbor in neighbor_list %}
+    <div>
+      <p>ID: {{neighbor.id}}, From: {{ neighbor.space_a_id }}, To: {{ neighbor.space_b_id }}, through: {{ neighbor.route}} </p>
+    </div>
+    {% endfor %}
+    <p>---------------------------------------------------------------------
+    <p>이웃 공간 추가</p>
+    <p><label for="neighbor_space_id">이웃공간 ID:</label>
+      <input name="neighbor_space_id" id="neighbor_space_id" type="text" maxlength="20" required></p>
+    <p><label for="route">통로:</label>
+      <input name="route" id="route" type="text" maxlength="30" required></p>
+    <p><label for="loc">위치:</label>
+      <input name="loc" id="loc" type="text" maxlength="30" required></p>
+    <p><label for="space_a">시작:</label>
+      <input name="space_a" id="space_a" type="text" maxlength="20" required></p>
+    <p><label for="space_b">끝:</label>
+      <input name="space_b" id="space_b" type="text" maxlength="20" required></p>
+    <button type="submit" name="mode" value="insertNeighbor" class="save btn btn-default">등록</button>
+  </form>
+  <p>---------------------------------------------------------------------
+
+  <p>---------------------------------------------------------------------
+
+{% endblock %}
